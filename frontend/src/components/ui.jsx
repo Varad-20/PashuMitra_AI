@@ -44,12 +44,12 @@ export function Badge({ children }) {
 
 export function PageHeader({ title, subtitle, children }) {
   return (
-    <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between animate-fadeUp">
-      <div>
-        <h1 className="text-2xl font-extrabold tracking-tight text-slate-900">{title}</h1>
-        {subtitle && <p className="mt-1 text-sm text-slate-500">{subtitle}</p>}
+    <div className="mb-5 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-end sm:justify-between animate-fadeUp">
+      <div className="min-w-0">
+        <h1 className="text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl break-words">{title}</h1>
+        {subtitle && <p className="mt-1 text-xs text-slate-500 sm:text-sm">{subtitle}</p>}
       </div>
-      <div className="flex flex-wrap gap-2">{children}</div>
+      {children && <div className="flex flex-wrap items-center gap-2">{children}</div>}
     </div>
   );
 }
@@ -63,15 +63,15 @@ export function StatCard({ icon: Icon, label, value, hint, tone = 'green' }) {
     violet: 'bg-violet-50 text-violet-600',
   };
   return (
-    <div className="card p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md animate-fadeUp">
-      <div className="flex items-start justify-between">
-        <div>
-          <p className="text-sm font-medium text-slate-500">{label}</p>
-          <p className="mt-2 text-3xl font-extrabold text-slate-900">{value}</p>
+    <div className="card p-4 sm:p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md animate-fadeUp">
+      <div className="flex items-start justify-between gap-2">
+        <div className="min-w-0">
+          <p className="text-xs font-medium text-slate-500 sm:text-sm truncate">{label}</p>
+          <p className="mt-1.5 text-2xl font-extrabold text-slate-900 sm:mt-2 sm:text-3xl">{value}</p>
         </div>
-        <div className={`rounded-xl p-3 ${tones[tone]}`}><Icon size={22} /></div>
+        <div className={`shrink-0 rounded-xl p-2.5 sm:p-3 ${tones[tone]}`}><Icon size={20} /></div>
       </div>
-      {hint && <p className="mt-3 text-xs text-slate-500">{hint}</p>}
+      {hint && <p className="mt-2.5 text-xs text-slate-500 sm:mt-3">{hint}</p>}
     </div>
   );
 }
@@ -124,11 +124,11 @@ export function Modal({ open, title, onClose, children, wide }) {
         onMouseDown={(e) => e.stopPropagation()}
         className={`animate-pop flex max-h-[92vh] w-full flex-col rounded-t-3xl bg-white shadow-2xl sm:rounded-3xl ${wide ? 'sm:max-w-2xl' : 'sm:max-w-lg'}`}
       >
-        <div className="flex items-center justify-between border-b border-slate-100 px-6 py-4">
-          <h2 className="text-lg font-bold text-slate-900">{title}</h2>
-          <button onClick={onClose} className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700" aria-label={t('common.close')}><X size={20} /></button>
+        <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4 sm:px-6">
+          <h2 className="text-base font-bold text-slate-900 sm:text-lg pr-2">{title}</h2>
+          <button onClick={onClose} className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-slate-400 hover:bg-slate-100 hover:text-slate-700" aria-label={t('common.close')}><X size={20} /></button>
         </div>
-        <div className="overflow-y-auto px-6 py-5">{children}</div>
+        <div className="overflow-y-auto px-5 py-4 sm:px-6 sm:py-5">{children}</div>
       </div>
     </div>
   );

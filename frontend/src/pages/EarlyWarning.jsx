@@ -136,8 +136,8 @@ export default function EarlyWarning() {
                       {speciesEmoji[animal.species]}
                     </span>
                     <div>
-                      <div className="flex flex-wrap items-center gap-2">
-                        <Link to={`/digital-twin?animal=${animal._id}`} className="text-lg font-extrabold text-slate-900 hover:text-brand-700">
+                      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                        <Link to={`/digital-twin?animal=${animal._id}`} className="text-base font-extrabold text-slate-900 hover:text-brand-700 sm:text-lg">
                           {animal.name} ({animal.animalId})
                         </Link>
                         {al.isSample && <SampleTag />}
@@ -150,30 +150,30 @@ export default function EarlyWarning() {
                           {al.status === 'Reviewed' ? t('earlyWarning.statusReviewed') : t('earlyWarning.statusActive')}
                         </span>
                       </div>
-                      <p className="mt-0.5 flex items-center gap-1.5 text-xs text-slate-500">
+                      <p className="mt-0.5 flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
                         <Clock size={12} /> {fmtDate(al.createdAt)} · {t(`enums.species.${animal.species}`)} · {trFarm(animal.farmName, t)}
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-2">
-                    <Link to={`/digital-twin?animal=${animal._id}`} className="btn-ghost !px-3 !py-1.5 text-xs">
+                  <div className="flex w-full flex-wrap gap-2 sm:w-auto">
+                    <Link to={`/digital-twin?animal=${animal._id}`} className="btn-ghost !min-h-[38px] flex-1 !px-3 !py-1.5 text-xs sm:flex-initial">
                       {t('earlyWarning.openDigitalTwin')} <ArrowUpRight size={14} />
                     </Link>
-                    <button onClick={() => openFollowUp(al)} className="btn-ghost !px-3 !py-1.5 text-xs">
+                    <button onClick={() => openFollowUp(al)} className="btn-ghost !min-h-[38px] flex-1 !px-3 !py-1.5 text-xs sm:flex-initial">
                       <MessageSquarePlus size={14} /> {t('earlyWarning.addFollowUp')}
                     </button>
                     {al.status === 'Active' ? (
                       <button
                         onClick={() => reviewAlert(al._id, { status: 'Reviewed' })}
-                        className="btn-primary !px-3.5 !py-1.5 text-xs"
+                        className="btn-primary !min-h-[38px] w-full !px-3.5 !py-1.5 text-xs sm:w-auto"
                       >
                         <CheckCircle2 size={14} /> {t('earlyWarning.markReviewed')}
                       </button>
                     ) : (
                       <button
                         onClick={() => reviewAlert(al._id, { status: 'Active' })}
-                        className="btn-ghost !px-3 !py-1.5 text-xs"
+                        className="btn-ghost !min-h-[38px] w-full !px-3 !py-1.5 text-xs sm:w-auto"
                       >
                         <RotateCcw size={14} /> {t('earlyWarning.reopenAlert')}
                       </button>

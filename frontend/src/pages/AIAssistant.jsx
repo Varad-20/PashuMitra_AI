@@ -225,24 +225,24 @@ export default function AIAssistant() {
     <>
       <PageHeader title={t('ai.title')} subtitle={t('ai.subtitle')}>
         {/* Mode Switcher */}
-        <div className="inline-flex rounded-xl border border-slate-200 bg-white p-1 shadow-sm">
+        <div className="grid w-full grid-cols-2 rounded-xl border border-slate-200 bg-white p-1 shadow-sm sm:inline-flex sm:w-auto">
           <button
             type="button"
             onClick={() => setModeTab('chat')}
-            className={`inline-flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs font-bold transition ${
+            className={`inline-flex min-h-[38px] items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition ${
               modeTab === 'chat' ? 'bg-brand-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
             }`}
           >
-            <MessageSquare size={14} /> {t('voiceChat.modeChat')}
+            <MessageSquare size={14} className="shrink-0" /> <span className="truncate">{t('voiceChat.modeChat')}</span>
           </button>
           <button
             type="button"
             onClick={() => setModeTab('form')}
-            className={`inline-flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs font-bold transition ${
+            className={`inline-flex min-h-[38px] items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition ${
               modeTab === 'form' ? 'bg-brand-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
             }`}
           >
-            <ClipboardList size={14} /> {t('voiceChat.modeForm')}
+            <ClipboardList size={14} className="shrink-0" /> <span className="truncate">{t('voiceChat.modeForm')}</span>
           </button>
         </div>
       </PageHeader>
@@ -365,26 +365,26 @@ export default function AIAssistant() {
           </div>
 
           {/* Right Panel: Chat Stream + Voice/Text Input Box */}
-          <div className="card flex flex-col overflow-hidden lg:col-span-8 animate-fadeUp" style={{ minHeight: '560px' }}>
-            <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/70 px-6 py-3.5">
-              <div className="flex items-center gap-2.5">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-600 text-white">
+          <div className="card flex flex-col overflow-hidden lg:col-span-8 animate-fadeUp">
+            <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/70 px-4 py-3 sm:px-6 sm:py-3.5">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-600 text-white">
                   <Bot size={19} />
                 </div>
-                <div>
-                  <h2 className="text-sm font-bold text-slate-900">{t('voiceChat.chatHistoryTitle')}</h2>
-                  <p className="text-xs text-slate-500">
+                <div className="min-w-0">
+                  <h2 className="text-sm font-bold text-slate-900 truncate">{t('voiceChat.chatHistoryTitle')}</h2>
+                  <p className="text-xs text-slate-500 truncate">
                     {animal ? `${animal.name} (${animal.animalId})` : ''}
                   </p>
                 </div>
               </div>
-              <span className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-3 py-1 text-xs font-bold text-brand-700">
+              <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-brand-50 px-2.5 py-1 text-[11px] font-bold text-brand-700 sm:px-3 sm:text-xs">
                 <Globe size={13} /> {LANG_OPTIONS.find((l) => l.code === language)?.label}
               </span>
             </div>
 
             {/* Messages Container */}
-            <div className="flex-1 space-y-5 overflow-y-auto p-6" style={{ maxHeight: '440px' }}>
+            <div className="flex-1 space-y-4 overflow-y-auto p-4 sm:space-y-5 sm:p-6 max-h-[380px] sm:max-h-[440px]">
               {animalChats.length === 0 && !sendingChat ? (
                 <EmptyState
                   title={t('voiceChat.emptyChatTitle', { name: animal?.name || '' })}

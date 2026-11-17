@@ -104,7 +104,7 @@ export default function Reports() {
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={vacc} layout="vertical">
               <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e2e8f0" />
-              <XAxis type="number" allowDecimals={false} /><YAxis type="category" dataKey="name" width={110} /><Tooltip cursor={{ fill: '#f8fafc' }} />
+              <XAxis type="number" allowDecimals={false} /><YAxis type="category" dataKey="name" width={92} tick={{ fontSize: 11 }} /><Tooltip cursor={{ fill: '#f8fafc' }} />
               <Bar dataKey="value" name={t('nav.vaccinations')} radius={[0, 8, 8, 0]}>{vacc.map((v) => <Cell key={v.raw} fill={VACC_COLORS[v.raw]} />)}</Bar>
             </BarChart>
           </ResponsiveContainer>

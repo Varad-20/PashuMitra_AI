@@ -1,0 +1,20 @@
+{
+  "name": "PashuMitra AI – Smart Livestock Health & Farm Management",
+  "short_name": "PashuMitra AI",
+  "description": "Smart Livestock Health, Animal Digital Twin, Early Warning & Multilingual Farm Management System",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f8fafc",
+  "theme_color": "#16a34a",
+  "categories": ["agriculture", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/leaf.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -19,7 +19,23 @@ import {
   buildContextAwareFallbackReply,
 } from '../lib/intelligence.js';
 
-const http = axios.create({ baseURL: import.meta.env.VITE_API_URL || '/api', timeout: 10000 });
+// Resolve API base URL dynamically:
+// 1. Use VITE_API_URL if set (unless it points to localhost while opened from an Android phone on LAN)
+// 2. Otherwise use '/api' (proxied by Vite dev server) or fallback to 'http://<current-lan-ip>:5000/api'
+function resolveApiBaseUrl() {
+  const configured = import.meta.env.VITE_API_URL;
+  const host = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
+  const isRemoteDevice = host && host !== 'localhost' && host !== '127.0.0.1';
+  if (configured) {
+    if (isRemoteDevice && /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?/i.test(configured)) {
+      return configured.replace(/localhost|127\.0\.0\.1/i, host);
+    }
+    return configured;
+  }
+  return '/api';
+}
+
+const http = axios.create({ baseURL: resolveApiBaseUrl(), timeout: 10000 });
 const STORAGE_KEY = 'pashumitra_demo_data_v3';
 const PATHS = {
   animals: '/animals',

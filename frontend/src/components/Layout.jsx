@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
@@ -31,26 +31,76 @@ const LANGUAGES = [
   { code: 'mr', label: 'मराठी' },
 ];
 
-function Sidebar({ onNavigate }) {
-  const { t } = useTranslation();
+function Sidebar({ onNavigate, onClose, showMobileControls, q, setQ, onSearch }) {
+  const { t, i18n } = useTranslation();
   return (
-    <div className="flex h-full flex-col bg-gradient-to-b from-brand-900 to-brand-800 text-white">
-      <div className="flex items-center gap-3 px-6 py-5">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/15"><Leaf size={22} /></div>
-        <div>
-          <p className="text-lg font-extrabold leading-none">{t('app.name')}<span className="text-brand-300"> {t('app.ai')}</span></p>
-          <p className="mt-1 text-[11px] text-brand-200">{t('app.tagline')}</p>
+    <div className="flex h-full flex-col bg-gradient-to-b from-brand-900 to-brand-800 text-white shadow-2xl">
+      <div className="flex items-center justify-between gap-3 px-5 py-5">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/15"><Leaf size={22} /></div>
+          <div>
+            <p className="text-lg font-extrabold leading-none">{t('app.name')}<span className="text-brand-300"> {t('app.ai')}</span></p>
+            <p className="mt-1 text-[11px] text-brand-200">{t('app.tagline')}</p>
+          </div>
         </div>
+        {onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-white hover:bg-white/20 lg:hidden"
+            aria-label={t('common.close')}
+          >
+            <X size={20} />
+          </button>
+        )}
       </div>
-      <nav className="flex-1 space-y-1 overflow-y-auto px-3 pb-4">
+
+      {/* Mobile Search & Quick Language Switcher inside Drawer */}
+      {showMobileControls && (
+        <div className="space-y-3 border-b border-white/10 px-4 pb-4 lg:hidden">
+          <form onSubmit={onSearch} className="relative">
+            <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-brand-200" />
+            <input
+              className="w-full min-h-[40px] rounded-xl border border-white/15 bg-white/10 pl-9 pr-3 py-2 text-xs text-white placeholder:text-brand-200 focus:border-white/40 focus:outline-none"
+              placeholder={t('app.searchPlaceholder')}
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+            />
+          </form>
+          <div className="grid grid-cols-3 gap-1.5 rounded-xl bg-white/10 p-1">
+            {LANGUAGES.map((l) => {
+              const active = (i18n.language || 'en') === l.code;
+              return (
+                <button
+                  key={l.code}
+                  type="button"
+                  onClick={() => changeAppLanguage(l.code)}
+                  className={`min-h-[36px] rounded-lg px-2 py-1.5 text-xs font-bold transition ${
+                    active ? 'bg-white text-brand-900 shadow-sm' : 'text-brand-100 hover:bg-white/10'
+                  }`}
+                >
+                  {l.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-3">
         {NAV.map(({ to, labelKey, icon: Icon }) => (
           <NavLink
-            key={to} to={to} end={to === '/'} onClick={onNavigate}
+            key={to}
+            to={to}
+            end={to === '/'}
+            onClick={onNavigate}
             className={({ isActive }) =>
-              `group flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium transition-all ${isActive ? 'bg-white text-brand-800 shadow-md' : 'text-brand-100 hover:bg-white/10 hover:translate-x-0.5'}`
+              `group flex min-h-[44px] items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium transition-all ${
+                isActive ? 'bg-white text-brand-800 shadow-md' : 'text-brand-100 hover:bg-white/10 hover:translate-x-0.5'
+              }`
             }
           >
-            <Icon size={18} /> {t(labelKey)}
+            <Icon size={18} className="shrink-0" /> <span className="truncate">{t(labelKey)}</span>
           </NavLink>
         ))}
       </nav>
@@ -67,52 +117,97 @@ export default function Layout() {
   const location = useLocation();
   const { mode, toasts, dismissToast, resetDemo } = useApp();
 
+  // Lock background scroll when mobile drawer is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [open]);
+
   const search = (e) => {
     e.preventDefault();
     navigate(q.trim() ? `/animals?q=${encodeURIComponent(q.trim())}` : '/animals');
     setQ('');
+    setOpen(false);
   };
 
   return (
-    <div className="min-h-screen">
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 lg:block"><Sidebar /></aside>
+    <div className="min-h-screen overflow-x-hidden">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 lg:block">
+        <Sidebar />
+      </aside>
+
       {open && (
-        <div className="fixed inset-0 z-40 lg:hidden">
-          <div className="absolute inset-0 bg-slate-900/50" onClick={() => setOpen(false)} />
-          <aside className="animate-slideIn absolute inset-y-0 left-0 w-64">
-            <Sidebar onNavigate={() => setOpen(false)} />
-            <button className="absolute right-3 top-5 text-white" onClick={() => setOpen(false)} aria-label={t('common.close')}><X /></button>
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs" onClick={() => setOpen(false)} />
+          <aside className="animate-slideIn fixed inset-y-0 left-0 z-10 w-72 max-w-[85vw]">
+            <Sidebar
+              onNavigate={() => setOpen(false)}
+              onClose={() => setOpen(false)}
+              showMobileControls
+              q={q}
+              setQ={setQ}
+              onSearch={search}
+            />
           </aside>
         </div>
       )}
 
       <div className="lg:pl-64">
-        <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-slate-200/70 bg-white/80 px-4 py-3 backdrop-blur sm:px-8">
-          <button className="rounded-lg p-2 text-slate-600 hover:bg-slate-100 lg:hidden" onClick={() => setOpen(true)} aria-label="Menu"><Menu /></button>
-          <form onSubmit={search} className="relative hidden max-w-sm flex-1 sm:block">
+        <header className="sticky top-0 z-20 flex items-center justify-between gap-2 border-b border-slate-200/70 bg-white/90 px-3 py-2.5 backdrop-blur sm:gap-3 sm:px-8 sm:py-3">
+          <div className="flex items-center gap-2">
+            <button
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl text-slate-700 hover:bg-slate-100 lg:hidden"
+              onClick={() => setOpen(true)}
+              aria-label="Menu"
+            >
+              <Menu size={22} />
+            </button>
+            <div className="flex items-center gap-2 lg:hidden">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-white">
+                <Leaf size={17} />
+              </div>
+              <span className="text-sm font-extrabold text-slate-900 sm:text-base">
+                {t('app.name')} <span className="text-brand-600">{t('app.ai')}</span>
+              </span>
+            </div>
+          </div>
+
+          <form onSubmit={search} className="relative hidden max-w-sm flex-1 md:block">
             <Search size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input className="input pl-10" placeholder={t('app.searchPlaceholder')} value={q} onChange={(e) => setQ(e.target.value)} />
           </form>
-          <div className="ml-auto flex items-center gap-2.5 sm:gap-3">
+
+          <div className="ml-auto flex items-center gap-1.5 sm:gap-3">
             {mode === 'demo' && (
               <>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-100 px-3 py-1.5 text-xs font-bold text-amber-800" title={t('app.demoTooltip')}>
-                  <FlaskConical size={14} /> {t('app.demoMode')}
+                <span
+                  className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-1.5 text-[11px] font-bold text-amber-800 sm:px-3 sm:text-xs"
+                  title={t('app.demoTooltip')}
+                >
+                  <FlaskConical size={13} /> <span className="hidden xs:inline sm:inline">{t('app.demoMode')}</span>
                 </span>
-                <button className="btn-ghost !px-3 !py-1.5 text-xs" onClick={() => setConfirmReset(true)}>
-                  <RotateCcw size={14} /> <span className="hidden sm:inline">{t('app.resetData')}</span>
+                <button
+                  className="btn-ghost !min-h-[38px] !px-2.5 !py-1.5 text-xs sm:!px-3"
+                  onClick={() => setConfirmReset(true)}
+                  title={t('app.resetData')}
+                >
+                  <RotateCcw size={14} /> <span className="hidden md:inline">{t('app.resetData')}</span>
                 </button>
               </>
             )}
 
-            {/* Global Language Selector Dropdown */}
+            {/* Global Language Selector Dropdown (touch-friendly on mobile & desktop) */}
             <div className="relative flex items-center">
-              <Globe size={16} className="pointer-events-none absolute left-3 text-brand-600" />
+              <Globe size={15} className="pointer-events-none absolute left-2.5 text-brand-600 sm:left-3" />
               <select
                 aria-label={t('app.language')}
                 value={i18n.language || 'en'}
                 onChange={(e) => changeAppLanguage(e.target.value)}
-                className="cursor-pointer rounded-xl border border-slate-200 bg-white py-1.5 pl-8 pr-3 text-xs font-bold text-slate-700 shadow-sm transition hover:border-brand-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+                className="min-h-[38px] cursor-pointer rounded-xl border border-slate-200 bg-white py-1.5 pl-7 pr-2.5 text-xs font-bold text-slate-700 shadow-sm transition hover:border-brand-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100 sm:pl-8 sm:pr-3"
               >
                 {LANGUAGES.map((l) => (
                   <option key={l.code} value={l.code}>{l.label}</option>
@@ -120,10 +215,12 @@ export default function Layout() {
               </select>
             </div>
 
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">FM</div>
+            <div className="hidden h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white sm:flex">
+              FM
+            </div>
           </div>
         </header>
-        <main key={location.pathname} className="mx-auto max-w-7xl p-4 sm:p-8"><Outlet /></main>
+        <main key={location.pathname} className="mx-auto max-w-7xl px-3.5 py-4 sm:p-6 lg:p-8"><Outlet /></main>
       </div>
 
       <ConfirmDialog

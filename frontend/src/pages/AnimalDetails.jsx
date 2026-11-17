@@ -296,32 +296,67 @@ export default function AnimalDetails() {
               <button className="btn-primary !py-2" onClick={() => setRecording(true)}><HeartPulse size={16} /> {t('health.recordHealth')}</button>
             </div>
             {history.length === 0 ? <EmptyState title={t('animals.noHealthRecords')} text={t('animals.recordFirstCheck')} /> : (
-              <div className="overflow-x-auto">
-                <table className="w-full min-w-[640px]">
-                  <thead className="border-y border-slate-100 bg-slate-50/70">
-                    <tr>
-                      <th className="th">{t('common.date')}</th>
-                      <th className="th">{t('health.tempShort')}</th>
-                      <th className="th">{t('health.appetite')}</th>
-                      <th className="th">{t('health.activityLevel')}</th>
-                      <th className="th">{t('health.symptoms')}</th>
-                      <th className="th">{t('health.result')}</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100">
-                    {history.map((r) => (
-                      <tr key={r._id}>
-                        <td className="td">{fmtDate(r.observationDate)}</td>
-                        <td className="td">{r.temperature}°C</td>
-                        <td className="td">{t(`enums.appetite.${r.appetite}`)}</td>
-                        <td className="td">{t(`enums.activity.${r.activity}`)}</td>
-                        <td className="td text-slate-500">{r.symptoms?.length ? translateSymptoms(r.symptoms) : '—'}</td>
-                        <td className="td"><Badge>{r.assessment?.level}</Badge></td>
+              <>
+                {/* Mobile Cards (< md) */}
+                <div className="grid gap-3 p-4 pt-1 md:hidden">
+                  {history.map((r) => (
+                    <div key={r._id} className="rounded-xl border border-slate-200/80 p-3.5">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-xs font-semibold text-slate-500">{fmtDate(r.observationDate)}</span>
+                        <Badge>{r.assessment?.level}</Badge>
+                      </div>
+                      <div className="mt-2.5 grid grid-cols-3 gap-2 rounded-lg bg-slate-50 p-2 text-xs">
+                        <div>
+                          <span className="text-slate-400">{t('health.tempShort')}</span>
+                          <p className="font-bold text-slate-900">{r.temperature}°C</p>
+                        </div>
+                        <div>
+                          <span className="text-slate-400">{t('health.appetite')}</span>
+                          <p className="font-semibold text-slate-800">{t(`enums.appetite.${r.appetite}`)}</p>
+                        </div>
+                        <div>
+                          <span className="text-slate-400">{t('health.activityLevel')}</span>
+                          <p className="font-semibold text-slate-800">{t(`enums.activity.${r.activity}`)}</p>
+                        </div>
+                      </div>
+                      {r.symptoms?.length > 0 && (
+                        <p className="mt-2 text-xs text-slate-600">
+                          <span className="font-semibold text-slate-500">{t('health.symptoms')}: </span>
+                          {translateSymptoms(r.symptoms)}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Desktop Table (md+) */}
+                <div className="hidden overflow-x-auto md:block">
+                  <table className="w-full min-w-[640px]">
+                    <thead className="border-y border-slate-100 bg-slate-50/70">
+                      <tr>
+                        <th className="th">{t('common.date')}</th>
+                        <th className="th">{t('health.tempShort')}</th>
+                        <th className="th">{t('health.appetite')}</th>
+                        <th className="th">{t('health.activityLevel')}</th>
+                        <th className="th">{t('health.symptoms')}</th>
+                        <th className="th">{t('health.result')}</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                      {history.map((r) => (
+                        <tr key={r._id}>
+                          <td className="td">{fmtDate(r.observationDate)}</td>
+                          <td className="td">{r.temperature}°C</td>
+                          <td className="td">{t(`enums.appetite.${r.appetite}`)}</td>
+                          <td className="td">{t(`enums.activity.${r.activity}`)}</td>
+                          <td className="td text-slate-500">{r.symptoms?.length ? translateSymptoms(r.symptoms) : '—'}</td>
+                          <td className="td"><Badge>{r.assessment?.level}</Badge></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </>
             )}
           </div>
 

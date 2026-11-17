@@ -304,66 +304,146 @@ export default function MilkProduction() {
         </div>
       </div>
 
-      {/* Milk Log Table */}
-      <div className="card mt-6 overflow-hidden animate-fadeUp">
-        <div className="border-b border-slate-100 p-6 pb-4">
+      {/* Milk Log Section (Mobile Cards + Desktop Table) */}
+      <div className="mt-6 animate-fadeUp">
+        <div className="card mb-3 p-4 sm:p-6 md:mb-0 md:rounded-b-none md:border-b-0">
           <h2 className="font-bold text-slate-900">{t('milk.tableTitle')}</h2>
           <p className="text-xs text-slate-500">{t('milk.showingEntries', { count: list.length })}</p>
         </div>
         {list.length === 0 ? (
-          <EmptyState title={t('milk.noRecordsTitle')} text={t('milk.noRecordsText')} />
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[820px]">
-              <thead className="border-b border-slate-100 bg-slate-50/70">
-                <tr>
-                  <th className="th">{t('common.date')}</th>
-                  <th className="th">{t('animals.animal')}</th>
-                  <th className="th">{t('milk.morningMilk')}</th>
-                  <th className="th">{t('milk.eveningMilk')}</th>
-                  <th className="th">{t('milk.totalMilkProduction')}</th>
-                  <th className="th">{t('milk.pricePerLitreShort')}</th>
-                  <th className="th">{t('milk.dailyRevenue')}</th>
-                  <th className="th">{t('milk.feedExpenses')}</th>
-                  <th className="th">{t('milk.estimatedProfit')}</th>
-                  <th className="th text-right">{t('common.actions')}</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {list.map((m) => {
-                  const animal = byId[m.animal];
-                  const total = +((m.morning || 0) + (m.evening || 0)).toFixed(1);
-                  const rev = Math.round(total * (m.pricePerLitre || 0));
-                  const profit = Math.round(rev - (m.feedExpense || 0));
-                  return (
-                    <tr key={m._id} className="transition hover:bg-brand-50/40">
-                      <td className="td whitespace-nowrap">{fmtDate(m.date)}</td>
-                      <td className="td font-semibold">
-                        {speciesEmoji[animal?.species]} {animal?.name}
-                        {m.isSample && <SampleTag />}
-                        <span className="block text-xs font-normal text-slate-500">{animal?.animalId}</span>
-                      </td>
-                      <td className="td">{m.morning} {t('common.litres')}</td>
-                      <td className="td">{m.evening} {t('common.litres')}</td>
-                      <td className="td font-bold text-brand-700">{total} {t('common.litres')}</td>
-                      <td className="td">₹{m.pricePerLitre}</td>
-                      <td className="td font-medium text-sky-700">₹{rev}</td>
-                      <td className="td text-amber-700">₹{m.feedExpense}</td>
-                      <td className={`td font-bold ${profit >= 0 ? 'text-emerald-700' : 'text-red-600'}`}>
-                        {profit >= 0 ? `+₹${profit}` : `-₹${Math.abs(profit)}`}
-                      </td>
-                      <td className="td">
-                        <div className="flex justify-end gap-1">
-                          <button onClick={() => startEdit(m)} className="rounded-lg p-2 text-slate-500 hover:bg-slate-100 hover:text-sky-600" title={t('common.edit')}><Pencil size={16} /></button>
-                          <button onClick={() => setToDelete(m)} className="rounded-lg p-2 text-slate-500 hover:bg-red-50 hover:text-red-600" title={t('common.delete')}><Trash2 size={16} /></button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+          <div className="card md:rounded-t-none">
+            <EmptyState title={t('milk.noRecordsTitle')} text={t('milk.noRecordsText')} />
           </div>
+        ) : (
+          <>
+            {/* Mobile Cards (< md) */}
+            <div className="grid gap-3 md:hidden">
+              {list.map((m) => {
+                const animal = byId[m.animal];
+                const total = +((m.morning || 0) + (m.evening || 0)).toFixed(1);
+                const rev = Math.round(total * (m.pricePerLitre || 0));
+                const profit = Math.round(rev - (m.feedExpense || 0));
+                return (
+                  <div key={m._id} className="card p-4">
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <p className="font-bold text-slate-900">
+                          {speciesEmoji[animal?.species]} {animal?.name}
+                          {m.isSample && <SampleTag />}
+                        </p>
+                        <p className="mt-0.5 text-xs text-slate-400">{animal?.animalId} · {fmtDate(m.date)}</p>
+                      </div>
+                      <span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-extrabold text-brand-700">
+                        {total} {t('common.litres')}
+                      </span>
+                    </div>
+
+                    <div className="mt-3 grid grid-cols-3 gap-2 rounded-xl bg-slate-50 p-2.5 text-xs">
+                      <div>
+                        <span className="text-slate-400">{t('milk.morningMilk')}</span>
+                        <p className="mt-0.5 font-semibold text-slate-800">{m.morning} {t('common.litres')}</p>
+                      </div>
+                      <div>
+                        <span className="text-slate-400">{t('milk.eveningMilk')}</span>
+                        <p className="mt-0.5 font-semibold text-slate-800">{m.evening} {t('common.litres')}</p>
+                      </div>
+                      <div>
+                        <span className="text-slate-400">{t('milk.pricePerLitreShort')}</span>
+                        <p className="mt-0.5 font-semibold text-slate-800">₹{m.pricePerLitre}</p>
+                      </div>
+                    </div>
+
+                    <div className="mt-2.5 grid grid-cols-3 gap-2 rounded-xl border border-slate-100 p-2.5 text-xs">
+                      <div>
+                        <span className="text-slate-400">{t('milk.dailyRevenue')}</span>
+                        <p className="mt-0.5 font-bold text-sky-700">₹{rev}</p>
+                      </div>
+                      <div>
+                        <span className="text-slate-400">{t('milk.feedExpenses')}</span>
+                        <p className="mt-0.5 font-semibold text-amber-700">₹{m.feedExpense}</p>
+                      </div>
+                      <div>
+                        <span className="text-slate-400">{t('milk.estimatedProfit')}</span>
+                        <p className={`mt-0.5 font-extrabold ${profit >= 0 ? 'text-emerald-700' : 'text-red-600'}`}>
+                          {profit >= 0 ? `+₹${profit}` : `-₹${Math.abs(profit)}`}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="mt-3 flex justify-end gap-1.5 border-t border-slate-100 pt-2.5">
+                      <button
+                        onClick={() => startEdit(m)}
+                        className="inline-flex h-9 items-center gap-1 rounded-lg border border-slate-200 px-3 text-xs font-semibold text-slate-600 hover:bg-slate-100"
+                      >
+                        <Pencil size={14} /> {t('common.edit')}
+                      </button>
+                      <button
+                        onClick={() => setToDelete(m)}
+                        className="inline-flex h-9 items-center gap-1 rounded-lg border border-red-100 bg-red-50/50 px-3 text-xs font-semibold text-red-600 hover:bg-red-100"
+                      >
+                        <Trash2 size={14} /> {t('common.delete')}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Desktop Table (md+) */}
+            <div className="card hidden overflow-hidden md:block md:rounded-t-none">
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[780px]">
+                  <thead className="border-y border-slate-100 bg-slate-50/70">
+                    <tr>
+                      <th className="th">{t('common.date')}</th>
+                      <th className="th">{t('animals.animal')}</th>
+                      <th className="th">{t('milk.morningMilk')}</th>
+                      <th className="th">{t('milk.eveningMilk')}</th>
+                      <th className="th">{t('milk.totalMilkProduction')}</th>
+                      <th className="th">{t('milk.pricePerLitreShort')}</th>
+                      <th className="th">{t('milk.dailyRevenue')}</th>
+                      <th className="th">{t('milk.feedExpenses')}</th>
+                      <th className="th">{t('milk.estimatedProfit')}</th>
+                      <th className="th text-right">{t('common.actions')}</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {list.map((m) => {
+                      const animal = byId[m.animal];
+                      const total = +((m.morning || 0) + (m.evening || 0)).toFixed(1);
+                      const rev = Math.round(total * (m.pricePerLitre || 0));
+                      const profit = Math.round(rev - (m.feedExpense || 0));
+                      return (
+                        <tr key={m._id} className="transition hover:bg-brand-50/40">
+                          <td className="td whitespace-nowrap">{fmtDate(m.date)}</td>
+                          <td className="td font-semibold">
+                            {speciesEmoji[animal?.species]} {animal?.name}
+                            {m.isSample && <SampleTag />}
+                            <span className="block text-xs font-normal text-slate-500">{animal?.animalId}</span>
+                          </td>
+                          <td className="td">{m.morning} {t('common.litres')}</td>
+                          <td className="td">{m.evening} {t('common.litres')}</td>
+                          <td className="td font-bold text-brand-700">{total} {t('common.litres')}</td>
+                          <td className="td">₹{m.pricePerLitre}</td>
+                          <td className="td font-medium text-sky-700">₹{rev}</td>
+                          <td className="td text-amber-700">₹{m.feedExpense}</td>
+                          <td className={`td font-bold ${profit >= 0 ? 'text-emerald-700' : 'text-red-600'}`}>
+                            {profit >= 0 ? `+₹${profit}` : `-₹${Math.abs(profit)}`}
+                          </td>
+                          <td className="td">
+                            <div className="flex justify-end gap-1">
+                              <button onClick={() => startEdit(m)} className="rounded-lg p-2 text-slate-500 hover:bg-slate-100 hover:text-sky-600" title={t('common.edit')}><Pencil size={16} /></button>
+                              <button onClick={() => setToDelete(m)} className="rounded-lg p-2 text-slate-500 hover:bg-red-50 hover:text-red-600" title={t('common.delete')}><Trash2 size={16} /></button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </>
         )}
       </div>
 
