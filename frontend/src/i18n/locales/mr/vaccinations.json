@@ -1,0 +1,20 @@
+{
+  "title": "लसीकरण व्यवस्थापन",
+  "subtitle": "जनावरांच्या लसी आणि पुढील तारखांची नोंद ठेवा",
+  "addVaccination": "लसीकरण जोडा",
+  "editVaccination": "लसीकरण संपादित करा",
+  "completed": "पूर्ण",
+  "dueSoon": "लवकरच देय",
+  "overdue": "मुदत उलटलेली",
+  "noRecordsTitle": "कोणतीही लसीकरण नोंद नाही",
+  "noRecordsText": "ट्रॅकिंग सुरू करण्यासाठी लसीकरण नोंद जोडा.",
+  "vaccineName": "लसीचे नाव (Vaccine Name)",
+  "vaccinePlaceholder": "उदा. लाळया खुरकत लस (FMD Vaccine)",
+  "vaccinationDate": "लसीकरण तारीख",
+  "vaccinatedOn": "लस दिलेली तारीख",
+  "nextDueDate": "पुढील देय तारीख",
+  "statusHint": "पुढील तारखेवरून स्थिती आपोआप सुचवली जाते. तुम्ही ती बदलू शकता.",
+  "deleteTitle": "लसीकरण नोंद हटवायची?",
+  "deleteMsg": "ही लसीकरण नोंद कायमची काढून टाकली जाईल.",
+  "dateOrderError": "पुढील देय तारीख लसीकरण तारखेपूर्वीची असू शकत नाही"
+}

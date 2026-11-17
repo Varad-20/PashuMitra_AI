@@ -1,0 +1,19 @@
+{
+  "title": "Reports & Analytics",
+  "subtitle": "Insights across your herd, health checks, vaccinations and milk production",
+  "noDataTitle": "No data for reports",
+  "noDataText": "Add animals and health records to see analytics.",
+  "healthyRate": "Healthy Rate",
+  "healthReports": "Health Reports",
+  "vaccinationsTracked": "Vaccinations Tracked",
+  "animalDistribution": "Animal Distribution",
+  "animalDistributionSub": "Number of animals in each species category",
+  "healthyVsAttention": "Healthy vs Attention Needed",
+  "healthyVsAttentionSub": "Current health status of all animals",
+  "vaccinationStatistics": "Vaccination Statistics",
+  "vaccinationStatisticsSub": "Completed, due soon and overdue vaccinations",
+  "healthRecordsOverTime": "Health Reports Over Time",
+  "healthRecordsOverTimeSub": "Weekly health checks by assessment result (last 8 weeks)",
+  "milkProductionReports": "Milk Production Reports",
+  "milkProductionReportsSub": "Daily total milk production (L) over the last 7 days"
+}

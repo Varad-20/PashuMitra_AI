@@ -1,0 +1,20 @@
+{
+  "title": "Vaccination Management",
+  "subtitle": "Track vaccinations and upcoming due dates",
+  "addVaccination": "Add Vaccination",
+  "editVaccination": "Edit Vaccination",
+  "completed": "Completed",
+  "dueSoon": "Due Soon",
+  "overdue": "Overdue",
+  "noRecordsTitle": "No vaccination records",
+  "noRecordsText": "Add a vaccination record to start tracking.",
+  "vaccineName": "Vaccine Name",
+  "vaccinePlaceholder": "e.g. FMD Vaccine",
+  "vaccinationDate": "Vaccination Date",
+  "vaccinatedOn": "Vaccinated On",
+  "nextDueDate": "Next Due Date",
+  "statusHint": "Status is suggested from the next due date. You can change it.",
+  "deleteTitle": "Delete vaccination?",
+  "deleteMsg": "This vaccination record will be permanently removed.",
+  "dateOrderError": "Next due date cannot be before the vaccination date"
+}

@@ -1,0 +1,19 @@
+{
+  "title": "अहवाल आणि विश्लेषण",
+  "subtitle": "तुमचा कळप, आरोग्य तपासणी, लसीकरण आणि दूध उत्पादनाचे सखोल अहवाल",
+  "noDataTitle": "अहवालासाठी डेटा नाही",
+  "noDataText": "विश्लेषण पाहण्यासाठी जनावरे आणि आरोग्य नोंदी जोडा.",
+  "healthyRate": "निरोगी प्रमाण",
+  "healthReports": "आरोग्य अहवाल",
+  "vaccinationsTracked": "नोंदवलेले लसीकरण",
+  "animalDistribution": "जनावर विभागणी (Animal Distribution)",
+  "animalDistributionSub": "प्रत्येक प्रकारातील जनावरांची संख्या",
+  "healthyVsAttention": "निरोगी विरुद्ध लक्ष देण्याची गरज",
+  "healthyVsAttentionSub": "सर्व जनावरांची सध्याची आरोग्य स्थिती",
+  "vaccinationStatistics": "लसीकरण आकडेवारी (Vaccination Statistics)",
+  "vaccinationStatisticsSub": "पूर्ण, लवकरच देय आणि मुदत उलटलेले लसीकरण",
+  "healthRecordsOverTime": "वेळेनुसार आरोग्य अहवाल",
+  "healthRecordsOverTimeSub": "मागील ८ आठवड्यांतील आरोग्य तपासणी निकाल",
+  "milkProductionReports": "दूध उत्पादन अहवाल",
+  "milkProductionReportsSub": "मागील ७ दिवसांतील एकूण दैनंदिन दूध संकलन (लिटर)"
+}

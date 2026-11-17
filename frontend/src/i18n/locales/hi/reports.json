@@ -1,0 +1,19 @@
+{
+  "title": "रिपोर्ट और विश्लेषण",
+  "subtitle": "पशुधन, स्वास्थ्य जांच, टीकाकरण और दूध उत्पादन की विस्तृत रिपोर्ट",
+  "noDataTitle": "रिपोर्ट के लिए डेटा नहीं है",
+  "noDataText": "विश्लेषण देखने के लिए पशु और स्वास्थ्य रिकॉर्ड जोड़ें।",
+  "healthyRate": "स्वस्थ पशु दर",
+  "healthReports": "स्वास्थ्य रिपोर्ट",
+  "vaccinationsTracked": "दर्ज टीकाकरण",
+  "animalDistribution": "पशु वितरण (Animal Distribution)",
+  "animalDistributionSub": "प्रत्येक प्रजाति में पशुओं की संख्या",
+  "healthyVsAttention": "स्वस्थ बनाम ध्यान देने योग्य पशु",
+  "healthyVsAttentionSub": "सभी पशुओं की वर्तमान स्वास्थ्य स्थिति",
+  "vaccinationStatistics": "टीकाकरण आंकड़े (Vaccination Statistics)",
+  "vaccinationStatisticsSub": "पूर्ण, जल्द देय और समय सीमा समाप्त टीके",
+  "healthRecordsOverTime": "समय के साथ स्वास्थ्य रिपोर्ट",
+  "healthRecordsOverTimeSub": "पिछले 8 सप्ताहों में स्वास्थ्य जांच परिणाम",
+  "milkProductionReports": "दूध उत्पादन रिपोर्ट",
+  "milkProductionReportsSub": "पिछले 7 दिनों का कुल दैनिक दूध उत्पादन (लीटर)"
+}

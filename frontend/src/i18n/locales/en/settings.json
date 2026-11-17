@@ -1,0 +1,17 @@
+{
+  "title": "Settings",
+  "subtitle": "Configure application language, farm profile preferences and demo data",
+  "languageSection": "Application Language",
+  "languageSub": "Choose your preferred language. The entire interface updates immediately and is saved automatically.",
+  "farmDefaults": "Default Farm & Pricing Preferences",
+  "defaultFarmName": "Default Farm Name",
+  "defaultMilkPrice": "Default Milk Selling Price (₹ / L)",
+  "defaultFeedCost": "Default Daily Feed Expense (₹)",
+  "saveSettings": "Save Settings",
+  "settingsSaved": "Settings saved successfully",
+  "dataSection": "Data & Demo Mode Management",
+  "currentMode": "Current Connection Mode",
+  "liveModeDesc": "Connected to Backend & MongoDB database",
+  "demoModeDesc": "Running in Browser Demo Mode (localStorage)",
+  "resetDemoBtn": "Reset Sample Demo Data"
+}
