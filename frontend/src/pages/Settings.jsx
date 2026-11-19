@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Globe, Building2, Database, RotateCcw, Check, Save } from 'lucide-react';
+import { Globe, Building2, Database, RotateCcw, Check, Save, Sun, Moon } from 'lucide-react';
 import { useApp } from '../context/AppContext.jsx';
 import { PageHeader, Field, ConfirmDialog } from '../components/ui.jsx';
 import { changeAppLanguage } from '../i18n/i18n.js';
@@ -13,7 +13,7 @@ const LANGUAGES = [
 
 export default function Settings() {
   const { t, i18n } = useTranslation();
-  const { mode, toast, resetDemo } = useApp();
+  const { theme, setTheme, mode, toast, resetDemo } = useApp();
   const [confirmReset, setConfirmReset] = useState(false);
 
   const savedPrefs = (() => {
@@ -100,6 +100,64 @@ export default function Settings() {
             <Save size={16} /> {t('settings.saveSettings')}
           </button>
         </form>
+
+        {/* Theme & Appearance Section */}
+        <div className="card p-6 lg:col-span-2 animate-fadeUp">
+          <h2 className="flex items-center gap-2 font-bold text-slate-900">
+            {theme === 'dark' ? <Moon size={19} className="text-brand-500" /> : <Sun size={19} className="text-amber-500" />}
+            {t('settings.themeSection', { defaultValue: 'Appearance & Theme' })}
+          </h2>
+          <p className="mt-1 text-xs text-slate-500">
+            {t('settings.themeSub', { defaultValue: 'Switch between Light Theme and Dark Theme. You can also toggle it anytime from the top navigation bar.' })}
+          </p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <button
+              type="button"
+              onClick={() => setTheme('light')}
+              className={`flex items-center justify-between rounded-xl border p-4 text-left transition ${
+                theme === 'light' ? 'border-brand-600 bg-brand-50/70 ring-2 ring-brand-200' : 'border-slate-200 bg-white hover:border-brand-300'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
+                  <Sun size={20} />
+                </span>
+                <div>
+                  <p className="font-bold text-slate-900">{t('app.lightTheme', { defaultValue: 'Light Theme' })}</p>
+                  <p className="text-xs text-slate-500">{t('settings.lightDesc', { defaultValue: 'Clean green & white daylight view' })}</p>
+                </div>
+              </div>
+              {theme === 'light' && (
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-600 text-white">
+                  <Check size={15} />
+                </span>
+              )}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setTheme('dark')}
+              className={`flex items-center justify-between rounded-xl border p-4 text-left transition ${
+                theme === 'dark' ? 'border-brand-600 bg-brand-50/70 ring-2 ring-brand-200' : 'border-slate-200 bg-white hover:border-brand-300'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-800 text-amber-300">
+                  <Moon size={20} />
+                </span>
+                <div>
+                  <p className="font-bold text-slate-900">{t('app.darkTheme', { defaultValue: 'Dark Theme' })}</p>
+                  <p className="text-xs text-slate-500">{t('settings.darkDesc', { defaultValue: 'Comfortable low-glare dark mode' })}</p>
+                </div>
+              </div>
+              {theme === 'dark' && (
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-600 text-white">
+                  <Check size={15} />
+                </span>
+              )}
+            </button>
+          </div>
+        </div>
 
         {/* Data & Connection Mode */}
         <div className="card p-6 lg:col-span-2 animate-fadeUp">

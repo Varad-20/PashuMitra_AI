@@ -17,7 +17,13 @@
     "reset": "रीसेट करें",
     "sample": "नमूना",
     "searchPlaceholder": "पशु खोजें...",
-    "language": "भाषा"
+    "language": "भाषा",
+    "light": "लाइट",
+    "dark": "डार्क",
+    "lightTheme": "लाइट थीम (Light)",
+    "darkTheme": "डार्क थीम (Dark)",
+    "switchToLight": "लाइट थीम पर बदलें",
+    "switchToDark": "डार्क थीम पर बदलें"
   },
   "nav": {
     "dashboard": "डैशबोर्ड",
@@ -416,7 +422,11 @@
     "currentMode": "वर्तमान कनेक्शन मोड",
     "liveModeDesc": "बैकएंड और MongoDB डेटाबेस से जुड़ा है",
     "demoModeDesc": "ब्राउज़र डेमो मोड (localStorage) में चल रहा है",
-    "resetDemoBtn": "सैंपल डेमो डेटा रीसेट करें"
+    "resetDemoBtn": "सैंपल डेमो डेटा रीसेट करें",
+    "themeSection": "दिखावट और थीम (Appearance & Theme)",
+    "themeSub": "लाइट थीम और डार्क थीम के बीच बदलें। आप इसे ऊपर नेविगेशन बार से भी कभी भी बदल सकते हैं।",
+    "lightDesc": "साफ हरा और सफेद दिन का मोड",
+    "darkDesc": "आंखों के लिए आरामदायक डार्क मोड"
   },
   "toasts": {
     "animalAdded": "नया पशु जोड़ा गया",

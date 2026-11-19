@@ -18,6 +18,13 @@ export const useApp = () => useContext(AppContext);
 
 export function AppProvider({ children }) {
   const { t } = useTranslation();
+  const [theme, setThemeState] = useState(() => {
+    try {
+      const saved = localStorage.getItem('pashumitra_theme');
+      if (saved === 'dark' || saved === 'light') return saved;
+    } catch { /* ignore */ }
+    return 'light';
+  });
   const [mode, setMode] = useState('demo');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -71,6 +78,26 @@ export function AppProvider({ children }) {
       setLoading(false);
     }
   }, [refresh]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    try {
+      localStorage.setItem('pashumitra_theme', theme);
+    } catch { /* ignore */ }
+  }, [theme]);
+
+  const setTheme = useCallback((nextTheme) => {
+    setThemeState(nextTheme === 'dark' ? 'dark' : 'light');
+  }, []);
+
+  const toggleTheme = useCallback(() => {
+    setThemeState((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  }, []);
 
   useEffect(() => { init(); }, [init]);
 
@@ -131,6 +158,9 @@ export function AppProvider({ children }) {
 
   const value = useMemo(
     () => ({
+      theme,
+      setTheme,
+      toggleTheme,
       mode,
       loading,
       error,
@@ -149,7 +179,7 @@ export function AppProvider({ children }) {
       ...actions,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [mode, loading, error, animals, records, vaccinations, milkRecords, treatments, aiAssessments, alerts, chatHistory, toasts]
+    [theme, mode, loading, error, animals, records, vaccinations, milkRecords, treatments, aiAssessments, alerts, chatHistory, toasts]
   );
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

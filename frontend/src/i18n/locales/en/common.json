@@ -17,7 +17,13 @@
     "reset": "Reset",
     "sample": "Sample",
     "searchPlaceholder": "Search animals...",
-    "language": "Language"
+    "language": "Language",
+    "light": "Light",
+    "dark": "Dark",
+    "lightTheme": "Light Theme",
+    "darkTheme": "Dark Theme",
+    "switchToLight": "Switch to Light Theme",
+    "switchToDark": "Switch to Dark Theme"
   },
   "nav": {
     "dashboard": "Dashboard",

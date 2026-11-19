@@ -17,7 +17,13 @@
     "reset": "रीसेट करा",
     "sample": "नमुना",
     "searchPlaceholder": "जनावर शोधा...",
-    "language": "भाषा"
+    "language": "भाषा",
+    "light": "लाईट",
+    "dark": "डार्क",
+    "lightTheme": "लाईट थीम (Light)",
+    "darkTheme": "डार्क थीम (Dark)",
+    "switchToLight": "लाईट थीमवर बदला",
+    "switchToDark": "डार्क थीमवर बदला"
   },
   "nav": {
     "dashboard": "डॅशबोर्ड",
@@ -416,7 +422,11 @@
     "currentMode": "सध्याचा कनेक्शन मोड",
     "liveModeDesc": "बॅकएंड आणि MongoDB डेटाबेसशी जोडलेले",
     "demoModeDesc": "ब्राउझर डेमो मोडमध्ये (localStorage) सुरू आहे",
-    "resetDemoBtn": "नमुना डेमो डेटा रीसेट करा"
+    "resetDemoBtn": "नमुना डेमो डेटा रीसेट करा",
+    "themeSection": "देखावा आणि थीम (Appearance & Theme)",
+    "themeSub": "लाईट थीम आणि डार्क थीम मध्ये बदला. तुम्ही वरच्या नेव्हिगेशन बारमधूनही कधीही थीम बदलू शकता.",
+    "lightDesc": "स्वच्छ हिरवी आणि पांढरी दिवसाची थीम",
+    "darkDesc": "डोळ्यांना आरामदायक डार्क मोड"
   },
   "toasts": {
     "animalAdded": "नवीन जनावर जोडले गेले",

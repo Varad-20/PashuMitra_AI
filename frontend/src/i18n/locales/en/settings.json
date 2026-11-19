@@ -13,5 +13,9 @@
   "currentMode": "Current Connection Mode",
   "liveModeDesc": "Connected to Backend & MongoDB database",
   "demoModeDesc": "Running in Browser Demo Mode (localStorage)",
-  "resetDemoBtn": "Reset Sample Demo Data"
+  "resetDemoBtn": "Reset Sample Demo Data",
+  "themeSection": "Appearance & Theme",
+  "themeSub": "Switch between Light Theme and Dark Theme. You can also toggle it anytime from the top navigation bar.",
+  "lightDesc": "Clean green & white daylight view",
+  "darkDesc": "Comfortable low-glare dark mode"
 }

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import {
   LayoutDashboard, PawPrint, HeartPulse, Bot, Syringe, BarChart3, QrCode, Milk,
   Stethoscope, Settings as SettingsIcon, Menu, X, Leaf, Search, FlaskConical, RotateCcw, Globe,
-  Activity, Bell,
+  Activity, Bell, Sun, Moon,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext.jsx';
 import { ToastContainer, ConfirmDialog } from './ui.jsx';
@@ -31,7 +31,7 @@ const LANGUAGES = [
   { code: 'mr', label: 'मराठी' },
 ];
 
-function Sidebar({ onNavigate, onClose, showMobileControls, q, setQ, onSearch }) {
+function Sidebar({ onNavigate, onClose, showMobileControls, q, setQ, onSearch, theme, toggleTheme }) {
   const { t, i18n } = useTranslation();
   return (
     <div className="flex h-full flex-col bg-gradient-to-b from-brand-900 to-brand-800 text-white shadow-2xl">
@@ -84,6 +84,16 @@ function Sidebar({ onNavigate, onClose, showMobileControls, q, setQ, onSearch })
               );
             })}
           </div>
+          {toggleTheme && (
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="flex min-h-[38px] w-full items-center justify-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-xs font-bold text-white transition hover:bg-white/20"
+            >
+              {theme === 'dark' ? <Sun size={15} className="text-amber-300" /> : <Moon size={15} />}
+              <span>{theme === 'dark' ? t('app.lightTheme', { defaultValue: 'Light Theme' }) : t('app.darkTheme', { defaultValue: 'Dark Theme' })}</span>
+            </button>
+          )}
         </div>
       )}
 
@@ -115,7 +125,7 @@ export default function Layout() {
   const [confirmReset, setConfirmReset] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { mode, toasts, dismissToast, resetDemo } = useApp();
+  const { theme, toggleTheme, mode, toasts, dismissToast, resetDemo } = useApp();
 
   // Lock background scroll when mobile drawer is open
   useEffect(() => {
@@ -151,6 +161,8 @@ export default function Layout() {
               q={q}
               setQ={setQ}
               onSearch={search}
+              theme={theme}
+              toggleTheme={toggleTheme}
             />
           </aside>
         </div>
@@ -199,6 +211,27 @@ export default function Layout() {
                 </button>
               </>
             )}
+
+            {/* Light / Dark Theme Toggle Button in Top Bar */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="inline-flex min-h-[38px] items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-bold text-slate-700 shadow-sm transition hover:border-brand-400 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700 sm:px-3"
+              title={theme === 'dark' ? t('app.switchToLight', { defaultValue: 'Switch to Light Theme' }) : t('app.switchToDark', { defaultValue: 'Switch to Dark Theme' })}
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? (
+                <>
+                  <Sun size={15} className="text-amber-400" />
+                  <span className="hidden sm:inline">{t('app.light', { defaultValue: 'Light' })}</span>
+                </>
+              ) : (
+                <>
+                  <Moon size={15} className="text-slate-600" />
+                  <span className="hidden sm:inline">{t('app.dark', { defaultValue: 'Dark' })}</span>
+                </>
+              )}
+            </button>
 
             {/* Global Language Selector Dropdown (touch-friendly on mobile & desktop) */}
             <div className="relative flex items-center">

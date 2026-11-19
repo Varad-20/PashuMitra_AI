@@ -17,7 +17,13 @@
     "reset": "रीसेट करें",
     "sample": "नमूना",
     "searchPlaceholder": "पशु खोजें...",
-    "language": "भाषा"
+    "language": "भाषा",
+    "light": "लाइट",
+    "dark": "डार्क",
+    "lightTheme": "लाइट थीम (Light)",
+    "darkTheme": "डार्क थीम (Dark)",
+    "switchToLight": "लाइट थीम पर बदलें",
+    "switchToDark": "डार्क थीम पर बदलें"
   },
   "nav": {
     "dashboard": "डैशबोर्ड",

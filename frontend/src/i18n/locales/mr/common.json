@@ -17,7 +17,13 @@
     "reset": "रीसेट करा",
     "sample": "नमुना",
     "searchPlaceholder": "जनावर शोधा...",
-    "language": "भाषा"
+    "language": "भाषा",
+    "light": "लाईट",
+    "dark": "डार्क",
+    "lightTheme": "लाईट थीम (Light)",
+    "darkTheme": "डार्क थीम (Dark)",
+    "switchToLight": "लाईट थीमवर बदला",
+    "switchToDark": "डार्क थीमवर बदला"
   },
   "nav": {
     "dashboard": "डॅशबोर्ड",

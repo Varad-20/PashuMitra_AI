@@ -4,19 +4,183 @@
 
 @layer base {
   html, body {
-    @apply bg-slate-50 text-slate-800 antialiased overflow-x-hidden;
+    @apply bg-slate-50 text-slate-800 antialiased overflow-x-hidden transition-colors duration-200;
     -webkit-tap-highlight-color: transparent;
+  }
+  html.dark, html.dark body {
+    @apply bg-slate-950 text-slate-100;
+    color-scheme: dark;
   }
 }
 
 @layer components {
-  .card { @apply bg-white rounded-2xl border border-slate-200/70 shadow-sm; }
-  .btn { @apply inline-flex min-h-[42px] items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-150 active:scale-[.98] disabled:opacity-60 disabled:cursor-not-allowed touch-manipulation; }
-  .btn-primary { @apply btn bg-brand-600 text-white shadow-sm shadow-brand-600/30 hover:bg-brand-700; }
-  .btn-ghost { @apply btn bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 hover:border-slate-300; }
-  .btn-danger { @apply btn bg-red-600 text-white hover:bg-red-700; }
-  .input { @apply w-full min-h-[42px] rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-100; }
-  .label { @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500; }
-  .th { @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500; }
-  .td { @apply px-4 py-3.5 text-sm; }
+  .card {
+    @apply bg-white rounded-2xl border border-slate-200/70 shadow-sm transition-colors duration-200 dark:bg-slate-900 dark:border-slate-800 dark:shadow-slate-950/50;
+  }
+  .btn {
+    @apply inline-flex min-h-[42px] items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-150 active:scale-[.98] disabled:opacity-60 disabled:cursor-not-allowed touch-manipulation;
+  }
+  .btn-primary {
+    @apply btn bg-brand-600 text-white shadow-sm shadow-brand-600/30 hover:bg-brand-700 dark:bg-brand-600 dark:hover:bg-brand-500;
+  }
+  .btn-ghost {
+    @apply btn bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 hover:border-slate-300 dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700 dark:hover:bg-slate-700;
+  }
+  .btn-danger {
+    @apply btn bg-red-600 text-white hover:bg-red-700;
+  }
+  .input {
+    @apply w-full min-h-[42px] rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-100 dark:bg-slate-800/90 dark:border-slate-700 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:ring-brand-900/40;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400;
+  }
+  .th {
+    @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400;
+  }
+  .td {
+    @apply px-4 py-3.5 text-sm dark:text-slate-200;
+  }
+}
+
+/* Global Dark Mode overrides so every existing page, table, modal, chart & card adapts seamlessly */
+html.dark .bg-white {
+  background-color: #0f172a;
+}
+html.dark .bg-white\/90,
+html.dark .bg-white\/80 {
+  background-color: rgba(15, 23, 42, 0.9);
+}
+html.dark .bg-slate-50,
+html.dark .bg-slate-50\/70,
+html.dark .bg-slate-50\/60,
+html.dark .bg-slate-50\/80 {
+  background-color: rgba(30, 41, 59, 0.65);
+}
+html.dark .bg-slate-100 {
+  background-color: #1e293b;
+}
+html.dark .text-slate-900 {
+  color: #f8fafc;
+}
+html.dark .text-slate-800 {
+  color: #f1f5f9;
+}
+html.dark .text-slate-700 {
+  color: #e2e8f0;
+}
+html.dark .text-slate-600 {
+  color: #cbd5e1;
+}
+html.dark .text-slate-500 {
+  color: #94a3b8;
+}
+html.dark .border-slate-100,
+html.dark .border-slate-200,
+html.dark .border-slate-200\/70,
+html.dark .border-slate-200\/80 {
+  border-color: #1e293b;
+}
+html.dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #1e293b;
+}
+html.dark .ring-slate-200 {
+  --tw-ring-color: #334155;
+}
+
+/* Subtle tinted backgrounds in dark mode */
+html.dark .bg-brand-50,
+html.dark .bg-brand-50\/40,
+html.dark .bg-brand-50\/50,
+html.dark .bg-brand-50\/70 {
+  background-color: rgba(22, 163, 74, 0.14);
+}
+html.dark .bg-brand-100 {
+  background-color: rgba(22, 163, 74, 0.22);
+}
+html.dark .text-brand-700,
+html.dark .text-brand-800 {
+  color: #4ade80;
+}
+html.dark .border-brand-100,
+html.dark .border-brand-200 {
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+html.dark .bg-emerald-50,
+html.dark .bg-emerald-50\/60 {
+  background-color: rgba(16, 185, 129, 0.15);
+}
+html.dark .text-emerald-700,
+html.dark .text-emerald-600 {
+  color: #34d399;
+}
+
+html.dark .bg-amber-50,
+html.dark .bg-amber-50\/60 {
+  background-color: rgba(245, 158, 11, 0.14);
+}
+html.dark .bg-amber-100 {
+  background-color: rgba(245, 158, 11, 0.22);
+}
+html.dark .text-amber-900,
+html.dark .text-amber-800,
+html.dark .text-amber-700 {
+  color: #fcd34d;
+}
+html.dark .border-amber-200 {
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+html.dark .bg-red-50,
+html.dark .bg-red-50\/50,
+html.dark .bg-red-50\/60 {
+  background-color: rgba(239, 68, 68, 0.15);
+}
+html.dark .text-red-700,
+html.dark .text-red-600 {
+  color: #f87171;
+}
+html.dark .border-red-100,
+html.dark .border-red-200 {
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+html.dark .bg-sky-50 {
+  background-color: rgba(14, 165, 233, 0.14);
+}
+html.dark .text-sky-900,
+html.dark .text-sky-800,
+html.dark .text-sky-700 {
+  color: #38bdf8;
+}
+html.dark .border-sky-100,
+html.dark .border-sky-200 {
+  border-color: rgba(14, 165, 233, 0.3);
+}
+
+html.dark .bg-violet-50,
+html.dark .bg-violet-100 {
+  background-color: rgba(139, 92, 246, 0.16);
+}
+html.dark .text-violet-700,
+html.dark .text-violet-600 {
+  color: #a78bfa;
+}
+
+/* Recharts dark mode polish */
+html.dark .recharts-cartesian-grid line {
+  stroke: #1e293b;
+}
+html.dark .recharts-text {
+  fill: #94a3b8;
+}
+html.dark .recharts-default-tooltip {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+  border-radius: 12px;
+}
+html.dark .recharts-tooltip-item {
+  color: #e2e8f0 !important;
 }
